@@ -22,36 +22,63 @@ Este repositorio contiene el código del backend para la plataforma **Relatos de
 - **Reglas**:
   - Las funcionalidades o correcciones se desarrollan directamente en esta rama.
   - Cada cambio debe estar vinculado a una incidencia de Jira.
-  - Los commits deben incluir el identificador de Jira en el mensaje. Ejemplo: `feat(JIRA-123): implementar endpoint de usuarios`.
+  - Los commits deben incluir el identificador de Jira en el mensaje. Ejemplo: `feat(BRDP-123): implementar endpoint de usuarios`.
+
+---
+### Ramas de Incidencias
+
+#### Formato de las Ramas
+- Cada incidencia de Jira debe tener su propia rama temporal con el siguiente formato:
+  - **`<proyecto-idincidencia-descripcion>`**
+  - Ejemplo: `BRDP-123-crear-endpoint-usuarios`
+
+#### Reglas de las Ramas
+- Las ramas de incidencias deben crearse desde `dev`.
+- Una vez completada la incidencia:
+  - Realizar un **merge** hacia `dev`.
+  - Cerrar la incidencia en Jira como "Hecha".
+  - Eliminar la rama de la incidencia tras la fusión.
 
 ---
 
 ## Flujo de Trabajo
 
 1. **Crear una incidencia en Jira**:
-   - Cada tarea, funcionalidad o corrección se gestiona como una incidencia en Jira.
-2. **Desarrollo directo en `dev`**:
-   - No se crean ramas adicionales. Todos los cambios se realizan directamente en `dev`.
-3. **Pruebas y validación en `production`**:
-   - Una vez completados los desarrollos en `dev`, se realiza un **merge** a `production` para pruebas en el entorno de preproducción.
-4. **Despliegue en `master`**:
-   - Tras validar los cambios en `production`, se realiza el **merge** final hacia `master`.
+   - Cada funcionalidad o corrección se gestiona como una incidencia en Jira.
+
+2. **Crear una rama de la incidencia**:
+   - Partiendo de `dev`, crear una rama con el formato `<proyecto-incidenciaID-descripcion>`.
+   - Ejemplo: `git checkout -b BBRDP-123-crear-endpoint-usuarios`
+
+3. **Desarrollar y realizar commits**:
+   - Los mensajes de commit deben incluir el identificador de Jira. Ejemplo:
+     - `feat(BBRDP-123): implementar endpoint de usuarios`
+     - `fix(BBRDP-456): corregir validación de datos`
+
+4. **Revisión en `dev`**:
+   - Cerrar la incidencia en Jira como "Hecha".
+   - Eliminar la rama de la incidencia:
+     - `git branch -d BRDP-123-crear-endpoint-usuarios`
+
+5. **Despliegue final en `master`**:
+   - Una vez validados los cambios en `dev`, mergear en `master`.
 
 ---
 
 ## Reglas de Commits
 
-- Los mensajes de commit deben incluir el identificador de la incidencia de Jira, seguido de una descripción clara. Formato recomendado:
-  - `feat(JIRA-123): implementar nueva funcionalidad`
-  - `fix(JIRA-456): corregir error en autenticación`
-  - `chore(JIRA-789): actualizar dependencias`
+- Los mensajes de commit deben incluir el identificador de Jira para facilitar la trazabilidad. Formato recomendado:
+  - `feat(<proyecto-idincidencia>): descripción clara del cambio`
+  - Ejemplo: `feat(BRDP-123): agregar autenticación con JWT`
 
 ---
 
 ## Consideraciones Finales
 
-- No se permite crear ramas adicionales fuera de `master`, `production` y `dev`.
-- Los cambios en `dev` deben estar claramente relacionados con una incidencia de Jira.
-- El flujo debe mantenerse sencillo para facilitar la trazabilidad y el control de versiones.
+- **Control de ramas**:
+  - Solo deben existir las ramas principales (`master`, `dev`) y ramas temporales por incidencia.
+  - Las ramas de incidencias deben eliminarse tras ser fusionadas en `dev`.
 
+- **Gestión de Jira**:
+  - Toda tarea debe estar asociada a una incidencia en Jira.
 ---
