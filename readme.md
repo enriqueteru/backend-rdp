@@ -4,6 +4,10 @@ Este repositorio contiene el código del backend para la plataforma **Relatos de
 
 ---
 
+## Postman
+
+https://cloudy-spaceship-464411.postman.co/workspace/UNIR---RDP-~fb86701f-cf8e-40f6-8719-e98675a53df9/collection/16505998-a39ff908-254a-40fd-8ea9-42af4d34124c?action=share&creator=16505998&active-environment=16505998-cbfbd59a-3d1c-4d3e-87aa-fb5f89004b07
+
 ## Estructura de Ramas
 
 ### Ramas Principales
