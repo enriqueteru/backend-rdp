@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:8.3
+    container_name: rdp_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rdp
+      MYSQL_DATABASE: rdp
+      MYSQL_USER: rdp
+      MYSQL_PASSWORD: rdp
+    ports:
+      - "3306:3306"
+    volumes:
+      - /Users/enriqueteruel/docker-volumes/mysql:/var/lib/mysql
+    platform: linux/arm64  
+
