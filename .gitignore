@@ -1,6 +1,7 @@
 # Standard folders and files
 /target/
 /build/
+/mysql/
 
 # Logs
 *.log
