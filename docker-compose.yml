@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:latest
+    container_name: rdp_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rdp
+      MYSQL_USER: rdp
+      MYSQL_PASSWORD: rdp
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d
