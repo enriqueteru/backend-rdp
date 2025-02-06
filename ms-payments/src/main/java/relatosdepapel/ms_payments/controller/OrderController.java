@@ -1,6 +1,7 @@
 package relatosdepapel.ms_payments.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,10 @@ public class OrderController {
     public ResponseEntity<List<Order>> getAllOrders() {
         log.info("getAllOrders");
         List<Order> orders = orderService.getOrders();
+        if (orders.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
         return ResponseEntity.ok(orders);
     }
 
@@ -33,6 +38,10 @@ public class OrderController {
     public ResponseEntity<Order> getOrderById(@PathVariable("id") String id) {
         log.info("getOrderById with id {}", id);
         Order order = orderService.getOrderById(Long.parseLong(id));
+        if (order == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
         return ResponseEntity.ok(order);
     }
 
