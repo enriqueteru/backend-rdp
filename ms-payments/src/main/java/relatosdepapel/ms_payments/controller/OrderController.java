@@ -38,7 +38,6 @@ public class OrderController {
         try {
             orderId = Long.parseLong(id);  // Intentamos convertir el ID a Long
         } catch (NumberFormatException e) {
-            // Si no se puede convertir, retornamos un error 400 (Bad Request)
             log.error("Invalid ID format: {}", id);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
