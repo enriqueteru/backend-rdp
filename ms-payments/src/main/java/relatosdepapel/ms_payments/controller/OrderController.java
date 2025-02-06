@@ -35,11 +35,19 @@ public class OrderController {
         log.info("getOrderById with id {}", id);
 
         Long orderId = null;
-        orderId = Long.parseLong(id);  // Intentamos convertir el ID a Long
+        try {
+            orderId = Long.parseLong(id);  // Intentamos convertir el ID a Long
+        } catch (NumberFormatException e) {
+            // Si no se puede convertir, retornamos un error 400 (Bad Request)
+            log.error("Invalid ID format: {}", id);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
         Order order = orderService.getOrderById(orderId);
         if (order == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();  // No se encuentra el pedido
         }
+
         return ResponseEntity.ok(order);  // Si todo está bien, retornamos el pedido
     }
 
