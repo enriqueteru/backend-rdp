@@ -27,22 +27,20 @@ public class OrderController {
     public ResponseEntity<List<Order>> getAllOrders() {
         log.info("getAllOrders");
         List<Order> orders = orderService.getOrders();
-        if (orders.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
         return ResponseEntity.ok(orders);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable("id") String id) {
         log.info("getOrderById with id {}", id);
-        Order order = orderService.getOrderById(Long.parseLong(id));
-        if (order == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
 
-        return ResponseEntity.ok(order);
+        Long orderId = null;
+        orderId = Long.parseLong(id);  // Intentamos convertir el ID a Long
+        Order order = orderService.getOrderById(orderId);
+        if (order == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();  // No se encuentra el pedido
+        }
+        return ResponseEntity.ok(order);  // Si todo está bien, retornamos el pedido
     }
 
     @PostMapping
