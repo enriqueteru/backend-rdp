@@ -1,6 +1,7 @@
 package relatosdepapel.ms_payments.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,21 @@ public class OrderController {
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable("id") String id) {
         log.info("getOrderById with id {}", id);
-        Order order = orderService.getOrderById(Long.parseLong(id));
-        return ResponseEntity.ok(order);
+
+        Long orderId = null;
+        try {
+            orderId = Long.parseLong(id);  // Intentamos convertir el ID a Long
+        } catch (NumberFormatException e) {
+            log.error("Invalid ID format: {}", id);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        Order order = orderService.getOrderById(orderId);
+        if (order == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();  // No se encuentra el pedido
+        }
+
+        return ResponseEntity.ok(order);  // Si todo está bien, retornamos el pedido
     }
 
     @PostMapping
